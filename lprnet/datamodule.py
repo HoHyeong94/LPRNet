@@ -80,7 +80,7 @@ class LPRNetDataset(Dataset):
 
     def __getitem__(self, index):
         filename = self.img_paths[index]
-        Image = cv2.imread(filename)
+        Image = cv2.imdecode(np.fromfile(filename, dtype=np.uint8), cv2.IMREAD_UNCHANGED)
         height, width, _ = Image.shape
         if height != self.img_size[1] or width != self.img_size[0]:
             Image = cv2.resize(Image, self.img_size, interpolation=cv2.INTER_CUBIC)

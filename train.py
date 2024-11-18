@@ -19,10 +19,10 @@ from lprnet import DataModule
 warnings.filterwarnings("ignore")
 
 if __name__ == "__main__":
-    with open("config/idn_config.yaml") as f:
+    with open("config/kor_config_train.yaml",encoding="utf8") as f:
         args = Namespace(**yaml.load(f, Loader=yaml.FullLoader))
 
-    args.saving_ckpt += datetime.now().strftime("_%m-%d_%H:%M")
+    args.saving_ckpt += datetime.now().strftime("_%m-%d_%H__%M")
 
     if not os.path.exists(args.saving_ckpt):
         os.mkdir(args.saving_ckpt)
@@ -61,6 +61,7 @@ if __name__ == "__main__":
         # amp_backend="apex",
         devices=1,
         logger=WandbLogger(project="LPRNet-IDN"),
+        max_epochs=30
     )
 
     # Train
